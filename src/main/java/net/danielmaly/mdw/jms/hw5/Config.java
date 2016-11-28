@@ -12,5 +12,7 @@ public class Config {
 
     public final static String BOOKING_QUEUE_NAME = "jms/mdw-booking-queue";
 
-    public final static String CONFIRMATION_QUEUE_NAME = "jms/mdw-confirmation-queue";
+    public final static String TRIP_QUEUE_NAME = "jms/mdw-trip-queue";
+
+    public final static String ORDER_QUEUE_NAME = "jms/mdw-order-queue";
 }

@@ -6,6 +6,7 @@ import javax.jms.*;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import java.io.Serializable;
 import java.util.Hashtable;
 
 public class JMSProducer {
@@ -24,12 +25,15 @@ public class JMSProducer {
     // queue where the message will be sent to
     private Queue queue;
 
-    // a message that will be sent to the queue
-    private TextMessage msg;
-
     // create a connection to the WLS using a JNDI context
-    public void init(Context ctx, String queueName)
+    public void init(String queueName)
             throws NamingException, JMSException {
+
+        Hashtable<String, String> env = new Hashtable<String, String>();
+        env.put(Context.INITIAL_CONTEXT_FACTORY, Config.JNDI_FACTORY);
+        env.put(Context.PROVIDER_URL, Config.PROVIDER_URL);
+
+        InitialContext ctx = new InitialContext(env);
 
         // create connection factory based on JNDI and a connection
         qconFactory = (QueueConnectionFactory) ctx.lookup(Config.JMS_FACTORY);
@@ -43,7 +47,6 @@ public class JMSProducer {
 
         // create sender and message
         qsender = qsession.createSender(queue);
-        msg = qsession.createTextMessage();
     }
 
     // close sender, connection and the session
@@ -53,25 +56,29 @@ public class JMSProducer {
         qcon.close();
     }
 
-    // sends the message to the queue
-    public void send(String queueName, String message) throws Exception {
+    public void send(String queueName, Message message) throws Exception {
 
-        // create a JNDI context to lookup JNDI objects (connection factory and queue)
-        Hashtable<String, String> env = new Hashtable<String, String>();
-        env.put(Context.INITIAL_CONTEXT_FACTORY, Config.JNDI_FACTORY);
-        env.put(Context.PROVIDER_URL, Config.PROVIDER_URL);
-
-        InitialContext ic = new InitialContext(env);
-        init(ic, queueName);
-
-        // send the message and close
+        init(queueName);
         try {
-            msg.setText(message);
-            qsender.send(msg, DeliveryMode.PERSISTENT, 8, 0);
+            qsender.send(message, DeliveryMode.PERSISTENT, 8, 0);
             System.out.println("The message was sent to the destination " +
                     qsender.getDestination().toString());
         } finally {
             close();
         }
+    }
+
+    // sends a string message to the queue
+    public void send(String queueName, String message) throws Exception {
+        init(queueName);
+        TextMessage msg = qsession.createTextMessage(message);
+        send(queueName, msg);
+    }
+
+    // sends an object message to the queue
+    public void send(String queueName, Serializable object) throws Exception {
+        init(queueName);
+        ObjectMessage msg = qsession.createObjectMessage(object);
+        send(queueName, msg);
     }
 }

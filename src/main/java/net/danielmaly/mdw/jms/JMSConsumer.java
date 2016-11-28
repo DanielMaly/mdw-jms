@@ -1,6 +1,6 @@
 package net.danielmaly.mdw.jms;
 
-import net.danielmaly.mdw.jms.tutorial04.Config;
+import net.danielmaly.mdw.jms.hw5.Config;
 
 import javax.jms.*;
 import javax.naming.Context;
@@ -26,26 +26,16 @@ public class JMSConsumer implements MessageListener, Runnable {
 
     private boolean stopped = false;
 
-    private java.util.Queue<String> messageQueue;
+    private java.util.Queue<Message> messageQueue;
 
     // callback when the message exist in the queue
     @Override
     public void onMessage(Message msg) {
-        try {
-            String msgText;
-            if (msg instanceof TextMessage) {
-                msgText = ((TextMessage) msg).getText();
-            } else {
-                msgText = msg.toString();
-            }
-            this.messageQueue.add(msgText);
-        } catch (JMSException jmse) {
-            System.err.println("An exception occurred: " + jmse.getMessage());
-        }
+        this.messageQueue.add(msg);
     }
 
     // create a connection to the WLS using a JNDI context
-    public JMSConsumer(String queueName, java.util.Queue<String> messageQueue)
+    public JMSConsumer(String queueName, java.util.Queue<Message> messageQueue)
             throws NamingException, JMSException {
 
         Hashtable<String, String> env = new Hashtable<String, String>();

@@ -3,12 +3,14 @@ package net.danielmaly.mdw.jms.tutorial04;
 import net.danielmaly.mdw.jms.JMSConsumer;
 import net.danielmaly.mdw.jms.JMSProducer;
 
+import javax.jms.Message;
+import javax.jms.TextMessage;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class BookingClient {
     public static void main(String[] args) throws Exception {
-        Queue<String> confirmationQueueMessages = new ConcurrentLinkedQueue<>();
+        Queue<Message> confirmationQueueMessages = new ConcurrentLinkedQueue<>();
         JMSConsumer confirmationConsumer = new JMSConsumer(Config.CONFIRMATION_QUEUE_NAME, confirmationQueueMessages);
         JMSProducer bookingProducer = new JMSProducer();
 
@@ -24,7 +26,7 @@ public class BookingClient {
 
 
             while(!confirmationQueueMessages.isEmpty()) {
-                String message = confirmationQueueMessages.remove();
+                String message = ((TextMessage) confirmationQueueMessages.remove()).getText();
                 System.out.println("Received confirmation message: " + message);
             }
             Thread.sleep(1000);
