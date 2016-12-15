@@ -1,3 +1,5 @@
 .idea
 *.iml
 *.class
+target/jms-1.0-SNAPSHOT/WEB-INF/classes
+target
