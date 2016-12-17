@@ -7,8 +7,8 @@ import javax.xml.bind.annotation.XmlElement;
 import java.time.Instant;
 import java.util.*;
 
-@WebService
-public class Airline {
+@WebService(endpointInterface = "net.danielmaly.mdw.ws.homework07.IAirline")
+public class Airline implements IAirline {
 
     private HashMap<Integer, FlightBooking> bookings;
     private List<Flight> flights;
