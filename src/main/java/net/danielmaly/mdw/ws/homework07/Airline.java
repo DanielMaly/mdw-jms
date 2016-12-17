@@ -4,7 +4,6 @@ package net.danielmaly.mdw.ws.homework07;
 import javax.jws.WebParam;
 import javax.jws.WebService;
 import javax.xml.bind.annotation.XmlElement;
-import java.time.Instant;
 import java.util.*;
 
 @WebService(endpointInterface = "net.danielmaly.mdw.ws.homework07.IAirline")

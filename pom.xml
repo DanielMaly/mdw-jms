@@ -5,8 +5,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>net.danielmaly.mdw</groupId>
-    <artifactId>jms-ws</artifactId>
-    <version>1.0</version>
+    <artifactId>jms</artifactId>
+    <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
     <build>
         <plugins>

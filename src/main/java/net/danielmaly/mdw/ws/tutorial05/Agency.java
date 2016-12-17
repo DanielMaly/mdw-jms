@@ -3,8 +3,8 @@ package net.danielmaly.mdw.ws.tutorial05;
 import javax.jws.WebService;
 import java.util.*;
 
-@WebService
-public class Agency {
+@WebService(endpointInterface = "net.danielmaly.mdw.ws.tutorial05.IAgency")
+public class Agency implements IAgency {
 
     private static int idCounter = 0;
 

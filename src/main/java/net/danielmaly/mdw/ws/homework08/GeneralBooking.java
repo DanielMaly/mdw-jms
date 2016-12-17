@@ -1,9 +1,12 @@
 package net.danielmaly.mdw.ws.homework08;
 
-import net.danielmaly.mdw.ws.homework07.Airline;
 import net.danielmaly.mdw.ws.homework07.FlightBookingCreateData;
 import net.danielmaly.mdw.ws.homework07.FlightBookingResponse;
 import net.danielmaly.mdw.ws.homework07.IAirline;
+import net.danielmaly.mdw.ws.tutorial05.IAgency;
+import net.danielmaly.mdw.ws.tutorial05.Trip;
+import net.danielmaly.mdw.ws.tutorial05.TripBooking;
+import net.danielmaly.mdw.ws.tutorial05.TripList;
 
 import javax.jws.WebParam;
 import javax.jws.WebService;
@@ -12,6 +15,7 @@ import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
 import java.net.URL;
 import java.util.Date;
+import java.util.Optional;
 
 @WebService
 public class GeneralBooking {
@@ -45,7 +49,7 @@ public class GeneralBooking {
         createData.setDepartureDate(departureDate);
 
         try {
-            URL url = new URL("http://localhost:7001/jms-ws-1.0/AirlineService?wsdl");
+            URL url = new URL("http://localhost:7001/jms-1.0-SNAPSHOT/AirlineService?wsdl");
 
             QName qname = new QName("http://homework07.ws.mdw.danielmaly.net/", "AirlineService");
             Service service = Service.create(url, qname);
@@ -71,6 +75,35 @@ public class GeneralBooking {
     private BookingCreateResponse createTripBooking(String name, String destination) {
         BookingCreateResponse response = new BookingCreateResponse();
 
-        return response;
+        try {
+            URL url = new URL("http://localhost:7001/jms-1.0-SNAPSHOT/AgencyService?wsdl");
+
+            QName qname = new QName("http://tutorial05.ws.mdw.danielmaly.net/", "AgencyService");
+            Service service = Service.create(url, qname);
+            IAgency agency = service.getPort(IAgency.class);
+
+            TripList tripList = agency.listTrips();
+            Optional<Trip> trip = tripList.getTrips().stream().filter(f -> f.getLocation().equals(destination)).findAny();
+
+            if(trip.isPresent()) {
+                Integer tripId = trip.get().getId();
+                TripBooking tripBooking = new TripBooking();
+                tripBooking.setTripId(tripId);
+                tripBooking.setName(name);
+                agency.addBooking(tripBooking);
+                response.setTripBooking(tripBooking);
+                response.setMessage("OK");
+            }
+            else {
+                response.setMessage("No trip available");
+            }
+
+            return response;
+        }
+        catch (Exception ex) {
+            response.setMessage(ex.getMessage());
+            return response;
+        }
+
     }
 }
