@@ -1,30 +1,20 @@
 package net.danielmaly.mdw.ws.homework07;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Date;
 
-@XmlRootElement
-public class FlightBookingCreateData {
-
-    @XmlElement(required = true)
-    private String passengerName;
-
-    @XmlElement(required = true)
+public class Flight {
+    private int id;
     private String departureCode;
-
-    @XmlElement(required = true)
     private String arrivalCode;
-
-    @XmlElement(required = true)
     private Date departureDate;
+    private Date arrivalDate;
 
-    public String getPassengerName() {
-        return passengerName;
+    public int getId() {
+        return id;
     }
 
-    public void setPassengerName(String passengerName) {
-        this.passengerName = passengerName;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getDepartureCode() {
@@ -49,5 +39,13 @@ public class FlightBookingCreateData {
 
     public void setDepartureDate(Date departureDate) {
         this.departureDate = departureDate;
+    }
+
+    public Date getArrivalDate() {
+        return arrivalDate;
+    }
+
+    public void setArrivalDate(Date arrivalDate) {
+        this.arrivalDate = arrivalDate;
     }
 }

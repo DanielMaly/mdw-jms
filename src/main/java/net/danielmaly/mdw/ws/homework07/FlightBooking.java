@@ -1,14 +1,10 @@
 package net.danielmaly.mdw.ws.homework07;
 
-import java.util.Date;
 
 public class FlightBooking {
     private int id;
     private String passengerName;
-    private String departureCode;
-    private String arrivalCode;
-    private Date departureDate;
-    private Date arrivalDate;
+    private Flight flight;
 
     public int getId() {
         return id;
@@ -26,35 +22,11 @@ public class FlightBooking {
         this.passengerName = passengerName;
     }
 
-    public String getDepartureCode() {
-        return departureCode;
+    public Flight getFlight() {
+        return flight;
     }
 
-    public void setDepartureCode(String departureCode) {
-        this.departureCode = departureCode;
-    }
-
-    public String getArrivalCode() {
-        return arrivalCode;
-    }
-
-    public void setArrivalCode(String arrivalCode) {
-        this.arrivalCode = arrivalCode;
-    }
-
-    public Date getDepartureDate() {
-        return departureDate;
-    }
-
-    public void setDepartureDate(Date departureDate) {
-        this.departureDate = departureDate;
-    }
-
-    public Date getArrivalDate() {
-        return arrivalDate;
-    }
-
-    public void setArrivalDate(Date arrivalDate) {
-        this.arrivalDate = arrivalDate;
+    public void setFlight(Flight flight) {
+        this.flight = flight;
     }
 }

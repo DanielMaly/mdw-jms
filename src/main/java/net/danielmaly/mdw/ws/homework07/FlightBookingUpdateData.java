@@ -11,10 +11,7 @@ public class FlightBookingUpdateData {
     private int id;
 
     private String passengerName;
-    private String departureCode;
-    private String arrivalCode;
-    private Date departureDate;
-    private Date arrivalDate;
+    private Integer flightId;
 
     public int getId() {
         return id;
@@ -32,35 +29,11 @@ public class FlightBookingUpdateData {
         this.passengerName = passengerName;
     }
 
-    public String getDepartureCode() {
-        return departureCode;
+    public Integer getFlightId() {
+        return flightId;
     }
 
-    public void setDepartureCode(String departureCode) {
-        this.departureCode = departureCode;
-    }
-
-    public String getArrivalCode() {
-        return arrivalCode;
-    }
-
-    public void setArrivalCode(String arrivalCode) {
-        this.arrivalCode = arrivalCode;
-    }
-
-    public Date getDepartureDate() {
-        return departureDate;
-    }
-
-    public void setDepartureDate(Date departureDate) {
-        this.departureDate = departureDate;
-    }
-
-    public Date getArrivalDate() {
-        return arrivalDate;
-    }
-
-    public void setArrivalDate(Date arrivalDate) {
-        this.arrivalDate = arrivalDate;
+    public void setFlightId(Integer flightId) {
+        this.flightId = flightId;
     }
 }
