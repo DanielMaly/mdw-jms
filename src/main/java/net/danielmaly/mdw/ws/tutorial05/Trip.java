@@ -10,7 +10,7 @@ public class Trip {
     private int id;
     private String location;
     private int capacity;
-    private List<Booking> bookings = new ArrayList<>();
+    private List<TripBooking> tripBookings = new ArrayList<>();
 
     public int getId() {
         return id;
@@ -36,13 +36,13 @@ public class Trip {
         this.capacity = capacity;
     }
 
-    @XmlElementWrapper(name="bookings")
+    @XmlElementWrapper(name="tripBookings")
     @XmlElement(name="booking")
-    public List<Booking> getBookings() {
-        return bookings;
+    public List<TripBooking> getTripBookings() {
+        return tripBookings;
     }
 
-    public void setBookings(List<Booking> bookings) {
-        this.bookings = bookings;
+    public void setTripBookings(List<TripBooking> tripBookings) {
+        this.tripBookings = tripBookings;
     }
 }

@@ -9,7 +9,22 @@ public class Agency {
     private static int idCounter = 0;
 
     private Map<Integer, Trip> trips = new HashMap<>();
-    private List<Booking> bookingList = new ArrayList<>();
+    private List<TripBooking> tripBookingList = new ArrayList<>();
+
+    public Agency() {
+        Trip trip1 = new Trip();
+        trip1.setLocation("Prague");
+        trip1.setCapacity(10);
+        trip1.setId(1);
+
+        Trip trip2 = new Trip();
+        trip2.setLocation("Paris");
+        trip2.setCapacity(10);
+        trip2.setId(2);
+
+        trips.put(1, trip1);
+        trips.put(2, trip2);
+    }
 
     public TripList listTrips() {
         TripList tripList = new TripList();
@@ -28,10 +43,10 @@ public class Agency {
         return resp;
     }
 
-    public void addBooking(Booking booking) {
-        Trip trip = trips.get(booking.getTripId());
-        trip.getBookings().add(booking);
-        bookingList.add(booking);
+    public void addBooking(TripBooking tripBooking) {
+        Trip trip = trips.get(tripBooking.getTripId());
+        trip.getTripBookings().add(tripBooking);
+        tripBookingList.add(tripBooking);
     }
 
 }

@@ -1,6 +1,6 @@
 package net.danielmaly.mdw.ws.tutorial05;
 
-public class Booking {
+public class TripBooking {
     private String name;
     private int tripId;
 

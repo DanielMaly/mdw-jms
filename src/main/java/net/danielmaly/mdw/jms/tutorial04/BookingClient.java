@@ -19,7 +19,7 @@ public class BookingClient {
         while(true) {
             if(Math.random() < 0.33) {
                 Integer roomNumber = (int) (Math.random() * 1000);
-                String booking = "Booking for room " + roomNumber;
+                String booking = "TripBooking for room " + roomNumber;
                 System.out.println("Sending booking for room " + roomNumber);
                 bookingProducer.send(Config.BOOKING_QUEUE_NAME, booking);
             }
